@@ -3,7 +3,7 @@ import numpy as np
 import math
 import random
 import colorsys
-import cat
+# import cat
 import dogpoints
 import capy
 
@@ -27,32 +27,34 @@ proj = (
 )
 
 
+# EM DESUSO
 
-cols = []
-random.seed()
-for i, hue in enumerate(hues):
-    facecolors = []
-    for sh in dogpoints.shades[i]:
-        facecolors.append(colorsys.hsv_to_rgb(hue, 1, sh))
-    cols.append(facecolors)
+# cols = []
+# random.seed()
+# for i, hue in enumerate(hues):
+#     facecolors = []
+#     for sh in dogpoints.shades[i]:
+#         facecolors.append(colorsys.hsv_to_rgb(hue, 1, sh))
+#     cols.append(facecolors)
 
-cols255 = []
-for part in cols:
-    part255 = []
-    for face in part:
-        face255 = []
-        for k in face:
-            face255.append(k * 255)
-        part255.append(face255)
-    cols255.append(part255)
+# cols255 = []
+# for part in cols:
+#     part255 = []
+#     for face in part:
+#         face255 = []
+#         for k in face:
+#             face255.append(k * 255)
+#         part255.append(face255)
+#     cols255.append(part255)
 
-print(len(cols255))
+# print(len(cols255))
 
-wf = True
-po = False
-toon = True
-rotating_d = False
-rotating_e = False
+
+wf = True  # Wireframe ligado (Modo contornos cianos)  tecla w
+po = False  # Pontos vermelhos nos vértices  tecla q
+toon = True # Linhas pretas (Fora do modo wireframe)  tecla t
+rotating_d = False     # seta direita
+rotating_e = False     # seta esquerda
 
 pygame.init()
 res = (1280, 720)

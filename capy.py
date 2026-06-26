@@ -72,7 +72,7 @@ for face in corpo:
     f = []
     for point in face:
         p = [None] * 3
-        p[0] = point[0] - 3
+        p[0] = point[0] - 4
         p[1] = -point[1] + 3
         p[2] = point[2] - 3
         f.append(p)
@@ -88,7 +88,7 @@ for pata in patas:
         f = []
         for point in face:
             p = [None] * 3
-            p[0] = point[0]/100 - 3
+            p[0] = point[0]/100 - 4
             p[1] = -point[1]/100 + 3
             p[2] = point[2]/100 - 3
             f.append(p)
