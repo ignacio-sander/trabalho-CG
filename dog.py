@@ -29,6 +29,8 @@ proj = (
     (math.sin(yang), -math.sin(xang) * math.cos(yang), math.cos(xang) * math.cos(yang))
 )
 
+kpos = (-27.9, -21.0, -5)
+
 
 # EM DESUSO
 
@@ -53,7 +55,7 @@ proj = (
 # print(len(cols255))
 
 
-wf = True  # Wireframe ligado (Modo contornos cianos)  tecla w
+wf = False  # Wireframe ligado (Modo contornos cianos)  tecla w
 po = False  # Pontos vermelhos nos vértices  tecla q
 toon = True # Linhas pretas (Fora do modo wireframe)  tecla t
 rotating_d = False     # seta direita
@@ -79,8 +81,15 @@ clock = pygame.time.Clock()
 def kdist(p):
     bd = 0
     for i in p:
-        if math.dist(i, (-27.9, -21.0, -5)) > bd:
-            bd = math.dist(i, (-27.9, -21.0, -5))
+        if math.dist(i, kpos) > bd:
+            bd = math.dist(i, kpos)
+    return bd
+
+def pdist(d):
+    bd = 0
+    for i in d:
+        if kdist(i) > bd:
+            bd = kdist(i)
     return bd
 
 def cdist(p, ref):
@@ -93,9 +102,9 @@ def cdist(p, ref):
 def cdist_ref(p):
     return cdist(p, (-27.9, -21.0, -5))
 
-#for parte in dog:
-#    parte.sort(key=cdist_ref)
-    
+for parte in dog:
+    parte.sort(key=kdist)
+dog.sort(key=pdist)
         
 
 pontos = []
@@ -111,6 +120,31 @@ for q in dog:
 
 #pontos[partes[p]]
 
+normalmap = []
+for parte in dog:
+    partes = []
+    for face in parte:
+        v0 = [face[1][0] - face[0][0], face[1][1] - face[0][1], face[1][2] - face[0][2]]
+        v1 = [face[1][0] - face[2][0], face[1][1] - face[2][1], face[1][2] - face[2][2]]
+        n = np.cross(v0, v1)
+        partes.append(n)
+    normalmap.append(partes)
+
+shademap = []
+for parte in normalmap:
+    partes = []
+    for face in parte:
+        
+        N = np.linalg.norm(face)
+        if N != 0:
+
+            shade = ((np.dot(face, (0, 1, 0))/(np.linalg.norm(face))) + 1)/2
+
+        else:
+            shade = 0
+        partes.append(shade)
+    shademap.append(partes)
+
 
 
 
@@ -125,7 +159,7 @@ while running:
     for c, part in enumerate(pontos):
         for m, face in enumerate(part):
             if not wf:
-                pygame.draw.polygon(window, 'cyan', face)
+                pygame.draw.polygon(window, [item * 255 for item in colorsys.hsv_to_rgb(0, 1, shademap[c][m])], face)
                 if toon:
                     pygame.draw.polygon(window, 'black', face, 1)
             if wf:
@@ -137,8 +171,6 @@ while running:
                 for k in i:
                     pygame.draw.circle(window, 'red', k, 2)
 
-
-            
 
     
 #HANDLING DE EVENTOS
@@ -205,3 +237,29 @@ while running:
                 p.append((res[0] * c[0]/(2*interval[0]) + res[0]/2, res[1] * -c[1]/(2*interval[1]) + res[1]/2))
             partes.append(p)
         pontos.append(partes)
+
+
+normalmap = []
+for parte in dog:
+    partes = []
+    for face in parte:
+        v0 = [face[1][0] - face[0][0], face[1][1] - face[0][1], face[1][2] - face[0][2]]
+        v1 = [face[1][0] - face[2][0], face[1][1] - face[2][1], face[1][2] - face[2][2]]
+        n = np.cross(v0, v1)
+        partes.append(n)
+    normalmap.append(partes)
+
+shademap = []
+for parte in normalmap:
+    partes = []
+    for face in parte:
+        
+        N = np.linalg.norm(face)
+        if N != 0:
+
+            shade = ((np.dot(face, (0, 1, 0))/(np.linalg.norm(face))) + 1)/2
+
+        else:
+            shade = 0
+        partes.append(shade)
+    shademap.append(partes)

@@ -14,13 +14,13 @@ def prism(poly, start, width):
             face = [priz[0][i], priz[0][i+1], priz[1][i + 1], priz[1][i]]
             priz.append(face)
         else:
-            face = [priz[0][i], priz[0][-1], priz[1][-1], priz[1][i]]
+            face = [priz[0][-1], priz[0][i], priz[1][i],  priz[1][-1]]
             priz.append(face)
 
 
     return priz    
 
-ocabeca = [(5, 5), (7.5, 6), (7, 7), (6.5, 8.5), (5.5, 7.5), (4, 8), (4.5, 5.3), (5, 5)]
+ocabeca = list(reversed([(5, 5), (7.5, 6), (7, 7), (6.5, 8.5), (5.5, 7.5), (4, 8), (4.5, 5.3), (5, 5)]))
 orabo = [(0, 4.5), (-2.5, 5.0), (-4.5, 5.5), (-2.5, 7.5), (-2, 5.5), (0, 4.8), (0, 4.5)]
 ocorpo = [(0, 3), (0, 5), (2, 5.5), (4.5, 5.3), (5, 5), (5, 3), (2, 2.5)]
 opatad = [(4.8, 3), (4.5, 1.5), (5, 0), (4, 0), (3.5, 2), (4.2, 2.9)]
@@ -55,7 +55,7 @@ patatd = prism(gato[4], (0.9 + ZSHIFT) * SCALE, 0.6 * SCALE)
 patade = prism(gato[3], (0 + ZSHIFT) * SCALE, 0.6 * SCALE)
 patadd = prism(gato[3], (0.9 + ZSHIFT) * SCALE, 0.6 * SCALE)
 
-print(patade)
+
 
 cat = [corpo3d, cabeca3d, rabo3d, patate, patatd, patade, patadd]
 
