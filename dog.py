@@ -3,7 +3,7 @@ import numpy as np
 import math
 import random
 import colorsys
-# import cat
+import cat
 import dogpoints
 import capy
 
@@ -13,6 +13,9 @@ for f in capy.capy:
     dog.append(f)
 
 for f in dogpoints.dog:
+    dog.append(f)
+
+for f in cat.cat:
     dog.append(f)
 
 hues = [0.08, 0.42, 0.86, 0.11, 0.66, 0.02, 0.33, 0.76, 0.15, 0.5, 0.59, 0, 0.2, 0.7]
@@ -90,8 +93,8 @@ def cdist(p, ref):
 def cdist_ref(p):
     return cdist(p, (-27.9, -21.0, -5))
 
-for parte in dog:
-    parte.sort(key=cdist_ref)
+#for parte in dog:
+#    parte.sort(key=cdist_ref)
     
         
 
