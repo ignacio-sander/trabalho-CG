@@ -4,20 +4,20 @@ import math
 import random
 import colorsys
 import cat
-import dogpoints
+import dog
 import capy
 import zbuffer
 
-dog = []
+animals = []
 
 for f in capy.capy:
-    dog.append(f)
+    animals.append(f)
 
-for f in dogpoints.dog:
-    dog.append(f)
+for f in dog.dog:
+    animals.append(f)
 
 for f in cat.cat:
-    dog.append(f)
+    animals.append(f)
 
 hues = [0.08, 0.42, 0.86, 0.11, 0.66, 0.02, 0.33, 0.76, 0.15, 0.5, 0.59, 0, 0.2, 0.7]
 
@@ -45,11 +45,11 @@ running = True
 clock = pygame.time.Clock()
 
 # Z-BUFFER
-faces_ordenadas = zbuffer.ordenar_faces(dog, proj, res, interval)
+faces_ordenadas = zbuffer.ordenar_faces(animals, proj, res, interval)
 
-def calcular_pontos(dog, proj, res, interval):
+def calcular_pontos(animals, proj, res, interval):
     pontos = []
-    for q in dog:
+    for q in animals:
         partes = []
         for face in q:
             p = []
@@ -60,10 +60,10 @@ def calcular_pontos(dog, proj, res, interval):
         pontos.append(partes)
     return pontos
 
-pontos = calcular_pontos(dog, proj, res, interval)
+pontos = calcular_pontos(animals, proj, res, interval)
 
 normalmap = []
-for parte in dog:
+for parte in animals:
     partes = []
     for face in parte:
         v0 = [face[1][0] - face[0][0], face[1][1] - face[0][1], face[1][2] - face[0][2]]
@@ -89,7 +89,7 @@ for parte in normalmap:
 
 
 hues = []
-for parte in dog:
+for parte in animals:
     hues.append(random.random())
 
 while running:
@@ -131,7 +131,7 @@ while running:
                 po = not po
             if event.key == pygame.K_c:
                 hues = []
-                for parte in dog:
+                for parte in animals:
                     hues.append(random.random())
 
         if event.type == pygame.KEYUP:
@@ -157,8 +157,8 @@ while running:
         (math.sin(yang), -math.sin(xang) * math.cos(yang), math.cos(xang) * math.cos(yang))
     )
     # Z-BUFFER
-    faces_ordenadas = zbuffer.ordenar_faces(dog, proj, res, interval)
+    faces_ordenadas = zbuffer.ordenar_faces(animals, proj, res, interval)
 
 
     if po:
-        pontos = calcular_pontos(dog, proj, res, interval)
+        pontos = calcular_pontos(animals, proj, res, interval)
