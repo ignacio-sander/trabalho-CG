@@ -1,0 +1,7 @@
+O Z-Buffer não está 100% efetivo para todas as faces pois usamos o algoritmo do pintor para implementar o Z-Buffer.
+
+Tivemos essa decisão pois o Z-Buffer real que é pixel a pixel é pesado demais no contexto de um código python com atalhos para girar a câmera.
+
+Nesse sentido, o FPS importa para esse código.
+
+As informações sobre como rodar o projeto e sobre os respectivos atalhos estão no README.md
