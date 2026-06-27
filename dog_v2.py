@@ -30,7 +30,7 @@ proj = (
     (math.sin(yang), -math.sin(xang) * math.cos(yang), math.cos(xang) * math.cos(yang))
 )
 
-wf = True  # Wireframe ligado (Modo contornos cianos)  tecla w
+wf = False  # Wireframe ligado (Modo contornos cianos)  tecla w
 po = False  # Pontos vermelhos nos vértices  tecla q
 toon = True # Linhas pretas (Fora do modo wireframe)  tecla t
 rotating_d = False     # seta direita
@@ -62,6 +62,34 @@ def calcular_pontos(dog, proj, res, interval):
 
 pontos = calcular_pontos(dog, proj, res, interval)
 
+normalmap = []
+for parte in dog:
+    partes = []
+    for face in parte:
+        v0 = [face[1][0] - face[0][0], face[1][1] - face[0][1], face[1][2] - face[0][2]]
+        v1 = [face[1][0] - face[2][0], face[1][1] - face[2][1], face[1][2] - face[2][2]]
+        n = np.cross(v0, v1)
+        partes.append(n)
+    normalmap.append(partes)
+
+shademap = []
+for parte in normalmap:
+    partes = []
+    for face in parte:
+        
+        N = np.linalg.norm(face)
+        if N != 0:
+
+            shade = ((np.dot(face, (0, 1, 0))/(np.linalg.norm(face))) + 1)/2
+
+        else:
+            shade = 0
+        partes.append(shade)
+    shademap.append(partes)
+
+
+print(len(faces_ordenadas))
+
 while running:
     window.fill('black')
     pygame.draw.line(window, (32, 32, 32), (0, res[1]/2), (res[0], res[1]/2))
@@ -70,7 +98,7 @@ while running:
     # Z-BUFFER
     for face_2d, parte_idx, face_idx in faces_ordenadas:
         if not wf:
-            pygame.draw.polygon(window, 'cyan', face_2d)
+            pygame.draw.polygon(window, [item * 255 for item in colorsys.hsv_to_rgb(0, 1, shademap[parte_idx][face_idx])], face_2d)
             if toon:
                 pygame.draw.polygon(window, 'black', face_2d, 1)
         if wf:
