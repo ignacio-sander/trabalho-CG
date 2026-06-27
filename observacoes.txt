@@ -1,6 +1,8 @@
 O Z-Buffer não está 100% efetivo para todas as faces pois usamos o algoritmo do pintor para implementar o Z-Buffer.
 
 Tivemos essa decisão pois o Z-Buffer real que é pixel a pixel é pesado demais no contexto de um código python com atalhos para girar a câmera.
+Do jeito que implementamos, ele pega a média dos vértices de cada face e usa isso para aproximar a profundidade, o que embora seja menos realista,
+é uma implementação mais leve e que funciona.
 
 Nesse sentido, o FPS importa para esse código.
 
