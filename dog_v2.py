@@ -88,7 +88,9 @@ for parte in normalmap:
     shademap.append(partes)
 
 
-print(len(faces_ordenadas))
+hues = []
+for parte in dog:
+    hues.append(random.random())
 
 while running:
     window.fill('black')
@@ -98,7 +100,7 @@ while running:
     # Z-BUFFER
     for face_2d, parte_idx, face_idx in faces_ordenadas:
         if not wf:
-            pygame.draw.polygon(window, [item * 255 for item in colorsys.hsv_to_rgb(0, 1, shademap[parte_idx][face_idx])], face_2d)
+            pygame.draw.polygon(window, [item * 255 for item in colorsys.hsv_to_rgb(hues[parte_idx], 1, shademap[parte_idx][face_idx])], face_2d)
             if toon:
                 pygame.draw.polygon(window, 'black', face_2d, 1)
         if wf:
@@ -128,17 +130,9 @@ while running:
             if event.key == pygame.K_q:
                 po = not po
             if event.key == pygame.K_c:
-                cols = []
-                random.seed()
-                for i in range(len(dog)):
-                    cols.append(colorsys.hsv_to_rgb(random.random(), 1, 1))
-
-                cols255 = []
-                for i in cols:
-                    b = []
-                    for j in i:
-                        b.append(j * 255)
-                    cols255.append(b)
+                hues = []
+                for parte in dog:
+                    hues.append(random.random())
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
